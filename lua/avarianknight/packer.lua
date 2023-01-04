@@ -24,6 +24,7 @@ return require('packer').startup(function(use)
         as = 'gruvbox',
         config = function()
             vim.cmd("colorscheme gruvbox")
+            vim.cmd("hi NonText guifg=bg")
         end
     }
 

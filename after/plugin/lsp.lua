@@ -68,7 +68,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>ca", "<Cmd> CodeActionMenu <CR>", opts)
   vim.keymap.set("n", "<leader>cr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>cn", function() vim.lsp.buf.rename() end, opts)
-  vim.keymap.set("i", "<leader>ci", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set("n", "<leader>ci", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
 lsp.setup()

@@ -75,12 +75,9 @@ time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   ["Comment.nvim"] = {
-    config = { "\27LJ\2\nq\0\0\5\0\6\0\f6\0\0\0006\2\1\0'\3\2\0B\0\3\3\14\0\0\0X\2\3€6\2\3\0'\4\4\0D\2\2\0009\2\5\1B\2\1\1K\0\1\0\nsetup\28didn't load comment api\nprint\fComment\frequire\npcall\0" },
-    keys = { { "", "gc" }, { "", "gb" } },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/skaggs/.local/share/nvim/site/pack/packer/opt/Comment.nvim",
+    config = { "\27LJ\2\nM\0\0\4\0\5\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0004\3\0\0=\3\4\2B\0\2\1K\0\1\0\rmappings\1\0\0\nsetup\fComment\frequire\0" },
+    loaded = true,
+    path = "/home/skaggs/.local/share/nvim/site/pack/packer/start/Comment.nvim",
     url = "https://github.com/numToStr/Comment.nvim"
   },
   LuaSnip = {
@@ -217,6 +214,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for gruvbox]], true)
 try_loadstring("\27LJ\2\n[\0\0\3\0\4\0\t6\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\1\0'\2\3\0B\0\2\1K\0\1\0\24hi NonText guifg=bg\24colorscheme gruvbox\bcmd\bvim\0", "config", "gruvbox")
 time([[Config for gruvbox]], false)
+-- Config for: Comment.nvim
+time([[Config for Comment.nvim]], true)
+try_loadstring("\27LJ\2\nM\0\0\4\0\5\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0004\3\0\0=\3\4\2B\0\2\1K\0\1\0\rmappings\1\0\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
+time([[Config for Comment.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-cmp ]]
@@ -237,12 +238,6 @@ pcall(vim.api.nvim_create_user_command, 'CodeActionMenu', function(cmdargs)
           return vim.fn.getcompletion('CodeActionMenu ', 'cmdline')
       end})
 time([[Defining lazy-load commands]], false)
-
--- Keymap lazy-loads
-time([[Defining lazy-load keymaps]], true)
-vim.cmd [[noremap <silent> gc <cmd>lua require("packer.load")({'Comment.nvim'}, { keys = "gc", prefix = "" }, _G.packer_plugins)<cr>]]
-vim.cmd [[noremap <silent> gb <cmd>lua require("packer.load")({'Comment.nvim'}, { keys = "gb", prefix = "" }, _G.packer_plugins)<cr>]]
-time([[Defining lazy-load keymaps]], false)
 
 
 _G._packer.inside_compile = false

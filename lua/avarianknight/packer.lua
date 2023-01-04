@@ -78,18 +78,15 @@ return require('packer').startup(function(use)
     }
 
     use {
-        "numToStr/Comment.nvim",
-        keys = { "gc", "gb" },
+        'numToStr/Comment.nvim',
         config = function()
-            local present, comment = pcall(require, "Comment")
-
-            if not present then
-                return print("didn't load comment api")
-            end
-
-            comment.setup()
+            require('Comment').setup({
+                mappings = {},
+            })
         end
     }
+
+
     use {
         'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu',

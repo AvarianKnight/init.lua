@@ -1,41 +1,39 @@
-vim.cmd [[packadd packer.nvim]]
+require("lazy").setup({
+    'wbthomason/packer.nvim',
+    'mbbill/undotree',
+    'tpope/vim-fugitive',
+    'feline-nvim/feline.nvim',
 
-return require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
-    use 'mbbill/undotree'
-    use 'tpope/vim-fugitive'
-    use 'feline-nvim/feline.nvim'
+    {
+        'nvim-telescope/telescope.nvim', version = '0.1.0',
+        dependencies = { { 'nvim-lua/plenary.nvim' } }
+    },
 
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
-        requires = { { 'nvim-lua/plenary.nvim' } }
-    }
-
-    use {
+    {
         'nvim-tree/nvim-tree.lua',
-        requires = {
+        dependencies = {
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
-    }
+        version = 'nightly' -- optional, updated every week. (see issue #1193)
+    },
 
-    use {
+    {
         'morhetz/gruvbox',
-        as = 'gruvbox',
+        name = 'gruvbox',
         config = function()
             vim.cmd("colorscheme gruvbox")
             vim.cmd("hi NonText guifg=bg")
         end
-    }
+    },
 
-    use {
+    {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
-    }
+    },
 
-    use {
+    {
         'VonHeikemen/lsp-zero.nvim',
-        requires = {
+        dependencies = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' },
             { 'williamboman/mason.nvim' },
@@ -53,11 +51,10 @@ return require('packer').startup(function(use)
             { 'L3MON4D3/LuaSnip' },
             { 'rafamadriz/friendly-snippets' },
         }
-    }
+    },
 
-    use {
+    {
         "windwp/nvim-autopairs",
-        after = "nvim-cmp",
         config = function()
             local present1, autopairs = pcall(require, "nvim-autopairs")
             local present2, cmp = pcall(require, "cmp")
@@ -75,21 +72,20 @@ return require('packer').startup(function(use)
             local cmp_autopairs = require "nvim-autopairs.completion.cmp"
             cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end
-    }
+    },
 
-    use {
+    {
         'numToStr/Comment.nvim',
         config = function()
             require('Comment').setup({
                 mappings = {},
             })
         end
-    }
+    },
 
 
-    use {
+    {
         'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu',
-    }
-
-end)
+    },
+})

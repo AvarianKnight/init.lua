@@ -88,4 +88,8 @@ require("lazy").setup({
         'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu',
     },
+
+    {
+        'romgrk/barbar.nvim',
+    }
 })

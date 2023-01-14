@@ -3,6 +3,7 @@ require("lazy").setup({
     'mbbill/undotree',
     'tpope/vim-fugitive',
     'feline-nvim/feline.nvim',
+    'romgrk/barbar.nvim',
 
     {
         'nvim-telescope/telescope.nvim', version = '0.1.0',
@@ -88,8 +89,4 @@ require("lazy").setup({
         'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu',
     },
-
-    {
-        'romgrk/barbar.nvim',
-    }
 })

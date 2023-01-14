@@ -56,6 +56,10 @@ function get_filename()
     if filename == '' then
         filename = '[no name]'
     end
+    -- Don't care about nvim tree
+    if filename:find('NvimTree_1') then
+        return ''
+    end
     -- this is some vim magic to remove the current working directory path
     -- from the absilute path of the filename in order to make the filename
     -- relative to the current working directory

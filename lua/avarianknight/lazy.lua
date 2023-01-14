@@ -4,7 +4,6 @@ require("lazy").setup({
     'tpope/vim-fugitive',
     'feline-nvim/feline.nvim',
     'romgrk/barbar.nvim',
-
     {
         'nvim-telescope/telescope.nvim', version = '0.1.0',
         dependencies = { { 'nvim-lua/plenary.nvim' } }

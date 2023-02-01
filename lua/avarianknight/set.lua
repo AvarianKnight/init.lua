@@ -32,3 +32,5 @@ vim.g.mapleader = " "
 
 vim.g.code_action_menu_show_details = false
 
+-- We don't want to show our insert mode in base line
+vim.cmd("set noshowmode")

@@ -8,7 +8,7 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
     'tsserver',
-    'sumneko_lua',
+    'lua_ls',
     'rust_analyzer',
 })
 
@@ -42,7 +42,12 @@ lsp.setup_nvim_cmp({
     mapping = cmp_mappings
 })
 
-lsp.configure('sumneko_lua', {
+require "lsp_signature".setup({})
+
+local rust_lsp = lsp.build_options('rust_analyzer', {})
+require('rust-tools').setup({server = rust_lsp})
+
+lsp.configure('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
@@ -92,7 +97,6 @@ lsp.set_preferences({
         info = 'I'
     }
 })
-
 
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }

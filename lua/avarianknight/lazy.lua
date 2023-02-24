@@ -4,6 +4,7 @@ require("lazy").setup({
     'tpope/vim-fugitive',
     'feline-nvim/feline.nvim',
     'romgrk/barbar.nvim',
+    "ray-x/lsp_signature.nvim",
     {
         'nvim-telescope/telescope.nvim', version = '0.1.0',
         dependencies = { { 'nvim-lua/plenary.nvim' } }
@@ -88,4 +89,5 @@ require("lazy").setup({
         'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu',
     },
+    "simrat39/rust-tools.nvim"
 })

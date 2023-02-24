@@ -7,6 +7,9 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fw', function()
 	-- If we cancel we want to just discard the error
 	pcall(function()
-		builtin.grep_string({ search = vim.fn.input("Grep > ") })
+        local search = vim.fn.input("Grep > ")
+        -- If we sent nothing cancel
+        if search == "" then return end
+		builtin.grep_string({ search = search  })
 	end)
 end, {})

@@ -1,10 +1,36 @@
 require("lazy").setup({
+    'romgrk/barbar.nvim',
     'wbthomason/packer.nvim',
     'mbbill/undotree',
     'tpope/vim-fugitive',
-    'feline-nvim/feline.nvim',
-    'romgrk/barbar.nvim',
+    {
+        'folke/tokyonight.nvim',
+        name = "tokyonight",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.cmd('colorscheme tokyonight')
+            vim.cmd("hi NonText guifg=bg")
+        end
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+        config = function()
+            require('lualine').setup {
+                options = {
+                    theme = 'tokyonight'
+                }
+            }
+        end
+    },
     "ray-x/lsp_signature.nvim",
+    -- {
+    --     "savq/melange-nvim",
+    --     config = function()
+    --         vim.cmd('colorscheme melange')
+    --         vim.cmd("hi NonText guifg=bg")
+    --     end
+    -- },
     {
         'nvim-telescope/telescope.nvim', version = '0.1.0',
         dependencies = { { 'nvim-lua/plenary.nvim' } }
@@ -18,14 +44,6 @@ require("lazy").setup({
         version = 'nightly' -- optional, updated every week. (see issue #1193)
     },
 
-    {
-        'morhetz/gruvbox',
-        name = 'gruvbox',
-        config = function()
-            vim.cmd("colorscheme gruvbox")
-            vim.cmd("hi NonText guifg=bg")
-        end
-    },
 
     {
         'nvim-treesitter/nvim-treesitter',

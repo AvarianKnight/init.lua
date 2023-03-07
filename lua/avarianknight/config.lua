@@ -1,11 +1,11 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
+vim.opt.spell = false
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-
 vim.opt.smartindent = true
 
 vim.opt.wrap = false
@@ -31,6 +31,8 @@ vim.opt.colorcolumn = "80"
 vim.g.mapleader = " "
 
 vim.g.code_action_menu_show_details = false
+
+vim.g.markdown_recommended_style = 0
 
 -- We don't want to show our insert mode in base line
 vim.cmd("set noshowmode")

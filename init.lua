@@ -12,3 +12,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("avarianknight")
+
+require("lazy").setup("plugins")

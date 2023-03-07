@@ -1,3 +1,2 @@
-require("avarianknight.set")
-require("avarianknight.lazy")
+require("avarianknight.config")
 require("avarianknight.remap")

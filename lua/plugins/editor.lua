@@ -1,6 +1,9 @@
 return {
     'mbbill/undotree',
     'tpope/vim-fugitive',
+    "Yggdroot/indentLine",
+    "evanleck/vim-svelte",
+    "othree/html5.vim",
     {
         'nvim-telescope/telescope.nvim', version = '0.1.0',
         dependencies = { { 'nvim-lua/plenary.nvim' } }
@@ -26,6 +29,7 @@ return {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     },
+    "nvim-treesitter/nvim-treesitter-context",
     -- Tabline
     'romgrk/barbar.nvim',
 }

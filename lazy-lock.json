@@ -9,7 +9,6 @@
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
   "friendly-snippets": { "branch": "main", "commit": "009887b76f15d16f69ae1341f86a7862f61cf2a1" },
   "gruvbox": { "branch": "semantic", "commit": "ff91abdf8c92cf5f9ce7b813dce154f567b05c23" },
-  "html5.vim": { "branch": "master", "commit": "7c9f6f38ce4f9d35db7eeedb764035b6b63922c6" },
   "indentLine": { "branch": "master", "commit": "d15d63bf9c4a74a02470d4bc8ecce53df13e3a75" },
   "lazy.nvim": { "branch": "main", "commit": "5b4444f0d7e556deba3f7ca949a2ba0e2c3369fb" },
   "lsp-zero.nvim": { "branch": "main", "commit": "07e43a593241bce72c0854398b16f51e0b46486e" },
@@ -34,6 +33,5 @@
   "telescope.nvim": { "branch": "master", "commit": "b79cd6c88b3d96b0f49cb7d240807cd59b610cd8" },
   "tokyonight": { "branch": "main", "commit": "3ebc29df627c5cf70eb6acb8f0843c9ea9cf6348" },
   "undotree": { "branch": "master", "commit": "485f01efde4e22cb1ce547b9e8c9238f36566f21" },
-  "vim-fugitive": { "branch": "master", "commit": "d4941aec931bfcb4086b6c80d3773191bab58f00" },
-  "vim-svelte": { "branch": "main", "commit": "0e93ec53c3667753237282926fec626785622c1c" }
+  "vim-fugitive": { "branch": "master", "commit": "d4941aec931bfcb4086b6c80d3773191bab58f00" }
 }

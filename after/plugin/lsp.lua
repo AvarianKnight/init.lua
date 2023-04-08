@@ -23,7 +23,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 
 local function entry_filter(entry)
     local completion_type = require('cmp.types').lsp.CompletionItemKind[entry:get_kind()]
-    return completion_type ~= "Snippet" and completion_type ~= "Text"
+    return completion_type ~= "Snippet"
 end
 
 -- disable completion with tab
@@ -44,14 +44,18 @@ lsp.setup_nvim_cmp({
 
 require "lsp_signature".setup({})
 
-local rust_lsp = lsp.build_options('rust_analyzer', {})
+local rust_lsp = lsp.build_options('rust_analyzer', {
+    procMacro = {
+        enable = true
+    }
+})
 require('rust-tools').setup({server = rust_lsp})
 
 lsp.configure('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
-                globals = { "citizen", "mysql", "vim", "vector3", "vector2", "vec3", "fx_version" },
+                globals = { "Citizen", "mysql", "vim", "vector3", "vector2", "vec3", "fx_version" },
             },
             completion = {
                 autorequire = false
@@ -60,7 +64,7 @@ lsp.configure('lua_ls', {
             runtime = {
                 version = "lua 5.4",
                 plugin = "~/.config/lua/plugin.lua",
-                nonstandardsymbol = {
+                nonstandardSymbol = {
                     "+=",
                     "-=",
                     "*=",
@@ -74,13 +78,14 @@ lsp.configure('lua_ls', {
                     [vim.fn.expand "$vimruntime/lua/vim/lsp"] = true,
                     ["~/.config/lua/natives"] = true,
                     ["~/fxserver/server-data/resources/pma-framework"] = true,
+                    ["~/fxserver/server-data/resources/oxmysql"] = true,
                     ["~/fxserver/server/alpine/opt/cfx-server/citizen/scripting/lua"] = true,
                 },
                 type = {
-                    weakunioncheck = true,
-                    weaknilcheck = true,
+                    weakUnionCheck = true,
+                    weakNilCheck = true,
                 },
-                maxpreload = 100000,
+                maxPreload = 100000,
                 preloadfilesize = 10000,
             },
         },
@@ -90,12 +95,6 @@ lsp.configure('lua_ls', {
 
 lsp.set_preferences({
     suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -112,6 +111,7 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>cn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("n", "<leader>ci", function() vim.lsp.buf.signature_help() end, opts)
 end)
+
 
 lsp.setup()
 

@@ -36,3 +36,4 @@ vim.g.markdown_recommended_style = 0
 
 -- We don't want to show our insert mode in base line
 vim.cmd("set noshowmode")
+

@@ -1,14 +1,5 @@
 return {
     {
-        'AvarianKnight/gruvbox.nvim',
-        name = "gruvbox",
-        branch = "semantic",
-        config = function()
-            -- vim.cmd('colorscheme gruvbox')
-            -- vim.cmd("hi NonText guifg=bg")
-        end
-    },
-    {
         'folke/tokyonight.nvim',
         name = "tokyonight",
         lazy = false,

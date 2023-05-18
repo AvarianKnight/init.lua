@@ -18,10 +18,9 @@ return {
         opts = { snippet_engine = "luasnip" },
     },
     {
-        "echasnovski/mini.pairs",
-        version = false,
+        "windwp/nvim-autopairs",
         config = function()
-            require('mini.pairs').setup()
+            require('nvim-autopairs').setup()
         end,
     },
 

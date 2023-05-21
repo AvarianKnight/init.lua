@@ -1,3 +1,5 @@
 return {
-
+    {
+        "stevearc/profile.nvim",
+    }
 }

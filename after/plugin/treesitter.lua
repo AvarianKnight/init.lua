@@ -3,7 +3,8 @@ require 'nvim-treesitter.configs'.setup {
     ensure_installed = { "javascript", "typescript", "c", "lua", "rust" },
 
     -- Vim handles svelte horribly, so we use treesitter for its indentions
-    indent = { disable = true, enable = { "svelte" } },
+    indent = { enable = true },
+    -- indent = { disable = true, enable = { "svelte" } },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -20,5 +21,8 @@ require 'nvim-treesitter.configs'.setup {
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
+        disable = function(_, bufnr)
+            return vim.api.nvim_buf_line_count(bufnr) > 10000
+        end,
     },
 }

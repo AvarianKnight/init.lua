@@ -1,9 +1,19 @@
 return {
     'mbbill/undotree',
     'tpope/vim-fugitive',
-    "Yggdroot/indentLine",
     {
-        'nvim-telescope/telescope.nvim', version = '0.1.0',
+        "lukas-reineke/indent-blankline.nvim",
+        setup = function()
+            require("indent_blankline").setup {
+                -- for example, context is off by default, use this to turn it on
+                show_current_context = true,
+                show_current_context_start = true,
+            }
+        end
+    },
+    {
+        'nvim-telescope/telescope.nvim',
+        version = '0.1.0',
         dependencies = { { 'nvim-lua/plenary.nvim' } },
         config = function()
             require("telescope").setup {
@@ -11,7 +21,8 @@ return {
                     file_ignore_patterns = {
                         "node_modules",
                         ".git",
-                        "dist/*"
+                        "dist/*",
+                        "html/*",
                     }
                 }
             }
@@ -32,7 +43,7 @@ return {
         dependencies = {
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
-        version = 'nightly' -- optional, updated every week. (see issue #1193)
+        version = 'nightly'                -- optional, updated every week. (see issue #1193)
     },
     {
         'nvim-treesitter/nvim-treesitter',

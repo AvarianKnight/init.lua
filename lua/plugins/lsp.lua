@@ -23,6 +23,8 @@ return {
             { 'rafamadriz/friendly-snippets' },
         }
     },
+    "windwp/nvim-ts-autotag"
+
     -- {
     --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     --     config = function()

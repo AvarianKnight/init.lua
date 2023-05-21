@@ -1,6 +1,4 @@
-require('bufferline').setup {
-    icons = 'both',
-}
+require('bufferline').setup { buffer_index = true, filetype = { enabled = true } }
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }

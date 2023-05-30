@@ -43,7 +43,11 @@ lsp.setup_nvim_cmp({
     mapping = cmp_mappings
 })
 
-require "lsp_signature".setup({})
+local lsp_signature = require("lsp_signature")
+lsp_signature.setup({})
+lsp_signature.on_attach({
+    doc_lines = 1,
+})
 
 local rust_lsp = lsp.build_options('rust_analyzer', {
     procMacro = {
@@ -119,7 +123,7 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = true,
     signs = true,
-    update_in_insert = false,
+    update_in_insert = true,
     underline = true,
     severity_sort = true,
     float = {

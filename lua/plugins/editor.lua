@@ -3,6 +3,7 @@ return {
     'tpope/vim-fugitive',
     {
         "lukas-reineke/indent-blankline.nvim",
+        event = "BufEnter",
         setup = function()
             require("indent_blankline").setup {
                 -- for example, context is off by default, use this to turn it on
@@ -48,6 +49,14 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
+    },
+    {
+        "ggandor/leap.nvim",
+        dependencies = { { 'tpope/vim-repeat' } },
+        event = "BufEnter",
+        config = function()
+            require('leap').add_default_mappings()
+        end
     },
     "nvim-treesitter/nvim-treesitter-context",
     -- Tabline

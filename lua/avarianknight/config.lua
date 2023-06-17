@@ -6,9 +6,12 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-vim.opt.ttyfast = true
-vim.opt.lazyredraw = true
-vim.opt.synmaxcol = 500
+
+-- vim.opt.guicursor = nil
+
+-- vim.opt.ttyfast = true
+-- vim.opt.lazyredraw = true
+-- vim.opt.synmaxcol = 500
 
 -- vim.opt.smartindent = true
 
@@ -34,8 +37,6 @@ vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 
-vim.g.vim_json_conceal = 0
-vim.g.vim_json_syntax_conceal = 0
 vim.g.code_action_menu_show_details = false
 
 vim.g.markdown_recommended_style = 0

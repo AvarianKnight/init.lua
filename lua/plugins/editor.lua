@@ -50,14 +50,15 @@ return {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     },
-    {
-        "ggandor/leap.nvim",
-        dependencies = { { 'tpope/vim-repeat' } },
-        event = "BufEnter",
-        config = function()
-            require('leap').add_default_mappings()
-        end
-    },
+    -- TODO: Custom keymappings
+    -- {
+    --     "ggandor/leap.nvim",
+    --     dependencies = { { 'tpope/vim-repeat' } },
+    --     event = "BufEnter",
+    --     config = function()
+    --         require('leap').add_default_mappings()
+    --     end
+    -- },
     "nvim-treesitter/nvim-treesitter-context",
     -- Tabline
     'romgrk/barbar.nvim',

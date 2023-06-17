@@ -21,8 +21,8 @@ require 'nvim-treesitter.configs'.setup {
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
-        disable = function(_, bufnr)
-            return vim.api.nvim_buf_line_count(bufnr) > 10000
-        end,
+        -- disable = function(_, bufnr)
+        --     return vim.api.nvim_buf_line_count(bufnr) > 10000
+        -- end,
     },
 }

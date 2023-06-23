@@ -33,9 +33,9 @@ return {
         'nvim-lualine/lualine.nvim',
         config = function()
             require('lualine').setup {
-                options = {
-                    theme = 'tokyonight'
-                }
+                -- options = {
+                --     theme = 'tokyonight'
+                -- }
             }
         end
     },
@@ -49,6 +49,15 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
+    },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
     },
     -- TODO: Custom keymappings
     -- {

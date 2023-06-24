@@ -1,6 +1,4 @@
-
 return {
-
     "simrat39/rust-tools.nvim",
     {
         'VonHeikemen/lsp-zero.nvim',
@@ -21,14 +19,11 @@ return {
             -- Snippets
             { 'L3MON4D3/LuaSnip' },
             { 'rafamadriz/friendly-snippets' },
-        }
+
+            -- Fix omnisharp
+            { "Hoffs/omnisharp-extended-lsp.nvim" },
+        },
+        branch = 'v2.x',
     },
     "windwp/nvim-ts-autotag"
-
-    -- {
-    --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    --     config = function()
-    --         require("lsp_lines").setup()
-    --     end
-    -- }
 }

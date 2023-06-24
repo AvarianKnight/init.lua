@@ -59,16 +59,20 @@ return {
             -- refer to the configuration section below
         }
     },
-    -- TODO: Custom keymappings
-    -- {
-    --     "ggandor/leap.nvim",
-    --     dependencies = { { 'tpope/vim-repeat' } },
-    --     event = "BufEnter",
-    --     config = function()
-    --         require('leap').add_default_mappings()
-    --     end
-    -- },
+    "folke/flash.nvim",
     "nvim-treesitter/nvim-treesitter-context",
-    -- Tabline
-    'romgrk/barbar.nvim',
+    {
+        "ThePrimeagen/harpoon",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    {
+        "ThePrimeagen/refactoring.nvim",
+        dependencies = {
+            { "nvim-lua/plenary.nvim" },
+            { "nvim-treesitter/nvim-treesitter" }
+        },
+        config = function()
+            require('refactoring').setup({})
+        end
+    }
 }

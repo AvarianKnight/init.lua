@@ -7,14 +7,6 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
--- vim.opt.guicursor = nil
-
--- vim.opt.ttyfast = true
--- vim.opt.lazyredraw = true
--- vim.opt.synmaxcol = 500
-
--- vim.opt.smartindent = true
-
 vim.opt.wrap = false
 
 vim.opt.swapfile = false

@@ -39,13 +39,13 @@ return {
             }
         end
     },
-    {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        },
-        version = 'nightly'                -- optional, updated every week. (see issue #1193)
-    },
+    -- {
+    --     'nvim-tree/nvim-tree.lua',
+    --     dependencies = {
+    --         'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    --     },
+    --     version = 'nightly'                -- optional, updated every week. (see issue #1193)
+    -- },
     {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
@@ -59,7 +59,37 @@ return {
             -- refer to the configuration section below
         }
     },
-    "folke/flash.nvim",
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+        keys = {
+            {
+                "s",
+                mode = { "n", "x", "o" },
+                function()
+                    require("flash").jump()
+                end,
+                desc = "Flash",
+            },
+            -- {
+            --     "S",
+            --     mode = { "n", "o", "x" },
+            --     function()
+            --         require("flash").treesitter()
+            --     end,
+            --     desc = "Flash Treesitter",
+            -- },
+            {
+                "<c-s>",
+                mode = { "c" },
+                function()
+                    require("flash").toggle()
+                end,
+                desc = "Toggle Flash Search",
+            },
+        },
+    },
     "nvim-treesitter/nvim-treesitter-context",
     {
         "ThePrimeagen/harpoon",
@@ -74,5 +104,7 @@ return {
         config = function()
             require('refactoring').setup({})
         end
-    }
+    },
+    "wakatime/vim-wakatime",
+    'nvim-tree/nvim-web-devicons', -- optional, for file icons
 }

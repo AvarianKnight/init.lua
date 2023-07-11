@@ -1,67 +1,50 @@
-local lsp = require("lsp-zero")
-
-vim.keymap.set("n", "<leader>fp", function()
-    vim.lsp.buf.format({ async = true })
-end)
-
-lsp.preset("recommended")
+local lsp = require("lsp-zero").preset("recommended")
 
 lsp.ensure_installed({
     'tsserver',
     'lua_ls',
     'rust_analyzer',
-    'omnisharp'
+    -- 'omnisharp'
 })
+
+lsp.setup()
+
 
 local cmp = require('cmp')
+
 cmp.setup({
-    preselect = cmp.PreselectMode.None
-})
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ["<C-Space>"] = cmp.mapping.complete(),
-})
+    sources = {
+        { name = 'path' },
+        { name = 'nvim_lsp', keyword_length = 3, max_item_count = 30 },
+        { name = 'buffer',   keyword_length = 3 },
+        { name = 'luasnip',  keyword_length = 2 },
+    },
+    mapping = {
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    },
+    formatting = {
+        format = function(_, vim_item)
+            local abbr = vim_item.abbr
+            -- only include up to the argument table
+            local find_args_start = abbr:find("%(")
 
-local function entry_filter(entry)
-    local completion_type = require('cmp.types').lsp.CompletionItemKind[entry:get_kind()]
-    return completion_type ~= "Snippet"
-end
-
--- disable completion with tab
--- this helps with copilot setup
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.setup_nvim_cmp({
-    sources = cmp.config.sources({
-        { name = "luasnip",  entry_filter = entry_filter },
-        { name = "nvim_lsp", entry_filter = entry_filter },
-        { name = "buffer",   entry_filter = entry_filter },
-        { name = "nvim_lua", entry_filter = entry_filter },
-        { name = "path",     entry_filter = entry_filter },
-    }),
-    mapping = cmp_mappings
+            vim_item.abbr = string.sub(abbr, 1, find_args_start and find_args_start - 1 or 50)
+            return vim_item
+        end
+    }
 })
 
 local lsp_signature = require("lsp_signature")
 lsp_signature.setup({})
 lsp_signature.on_attach({
-    doc_lines = 1,
+    doc_lines = 0,
 })
 
-local rust_lsp = lsp.build_options('rust_analyzer', {
-    procMacro = {
-        enable = true
-    }
-})
-require('rust-tools').setup({ server = rust_lsp })
+lsp.skip_server_setup({ "rust_analyzer" })
 
+require('rust-tools').setup()
 
-
-lsp.configure('lua_ls', {
+require('lspconfig').lua_ls.setup({
     settings = {
         Lua = {
             diagnostics = {
@@ -105,8 +88,12 @@ lsp.set_preferences({
     suggest_lsp_servers = false,
 })
 
+vim.keymap.set("n", "<leader>fp", function()
+    vim.lsp.buf.format({ async = true })
+end)
+
 lsp.on_attach(function(client, bufnr)
-    local opts = { buffer = bufnr, remap = false }
+    local opts = { buffer = bufnr }
 
     handle_ominisharp(client)
 
@@ -123,7 +110,6 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 
-lsp.setup()
 
 vim.diagnostic.config({
     virtual_text = true,
@@ -152,7 +138,6 @@ require("lspconfig").omnisharp.setup({
 
 function handle_ominisharp(client)
     if client.name == "omnisharp" then
-        print(client.cmd)
         client.server_capabilities.semanticTokensProvider = {
             full = vim.empty_dict(),
             legend = {

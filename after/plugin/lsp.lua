@@ -93,7 +93,7 @@ vim.keymap.set("n", "<leader>fp", function()
 end)
 
 lsp.on_attach(function(client, bufnr)
-    local opts = { buffer = bufnr }
+    local opts = { buffer = bufnr, remap = false }
 
     handle_ominisharp(client)
 

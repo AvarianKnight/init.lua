@@ -107,4 +107,5 @@ return {
     },
     "wakatime/vim-wakatime",
     'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    'prichrd/netrw.nvim'
 }

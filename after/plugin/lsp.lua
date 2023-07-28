@@ -15,9 +15,9 @@ local cmp = require('cmp')
 cmp.setup({
     sources = {
         { name = 'path' },
-        { name = 'nvim_lsp', keyword_length = 3, max_item_count = 30 },
-        { name = 'buffer',   keyword_length = 3 },
-        { name = 'luasnip',  keyword_length = 2 },
+        { name = 'nvim_lsp', --[[max_item_count = 30]] },
+        { name = 'buffer',   keyword_length = 2, max_item_count = 30 },
+        { name = 'luasnip',  keyword_length = 2, max_item_count = 30 },
     },
     mapping = {
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
@@ -108,7 +108,16 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>cn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("n", "<leader>ci", function() vim.lsp.buf.signature_help() end, opts)
 end)
-
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function()
+        local bufnr = vim.fn.bufnr('%')
+        vim.keymap.set("n", "<CR>", function()
+            vim.api.nvim_command([[execute "normal! \<cr>"]])
+            vim.api.nvim_command(bufnr .. 'bd')
+        end, { buffer = bufnr })
+    end,
+    pattern = "qf",
+})
 
 
 vim.diagnostic.config({

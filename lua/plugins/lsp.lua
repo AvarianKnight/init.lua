@@ -22,5 +22,6 @@ return {
             { "Hoffs/omnisharp-extended-lsp.nvim" }, -- fix omnisharp
         }
     },
+    { "folke/neodev.nvim", opts = {} },
     "windwp/nvim-ts-autotag",
 }

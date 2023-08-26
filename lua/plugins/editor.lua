@@ -14,14 +14,14 @@ return {
     },
     {
         'nvim-telescope/telescope.nvim',
-        version = '0.1.0',
+        version = '0.1.x',
         dependencies = { { 'nvim-lua/plenary.nvim' } },
         config = function()
             require("telescope").setup {
                 defaults = {
                     file_ignore_patterns = {
                         "node_modules",
-                        ".git",
+                        ".git/",
                         "dist/*",
                         "html/*",
                     }
@@ -32,20 +32,9 @@ return {
     {
         'nvim-lualine/lualine.nvim',
         config = function()
-            require('lualine').setup {
-                -- options = {
-                --     theme = 'tokyonight'
-                -- }
-            }
+            require('lualine').setup {}
         end
     },
-    -- {
-    --     'nvim-tree/nvim-tree.lua',
-    --     dependencies = {
-    --         'nvim-tree/nvim-web-devicons', -- optional, for file icons
-    --     },
-    --     version = 'nightly'                -- optional, updated every week. (see issue #1193)
-    -- },
     {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
@@ -53,12 +42,31 @@ return {
     {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
-        opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        }
+        opts = {}
     },
+    {
+        -- Adds git related signs to the gutter, as well as utilities for managing changes
+        'lewis6991/gitsigns.nvim',
+        opts = {
+            -- See `:help gitsigns.txt`
+            signs = {
+                add = { text = '+' },
+                change = { text = '~' },
+                delete = { text = '_' },
+                topdelete = { text = '‾' },
+                changedelete = { text = '~' },
+            },
+            on_attach = function(bufnr)
+                vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
+                    { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+                vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk,
+                    { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
+                vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk,
+                    { buffer = bufnr, desc = '[P]review [H]unk' })
+            end,
+        },
+    },
+
     {
         "folke/flash.nvim",
         event = "VeryLazy",
@@ -72,14 +80,14 @@ return {
                 end,
                 desc = "Flash",
             },
-            -- {
-            --     "S",
-            --     mode = { "n", "o", "x" },
-            --     function()
-            --         require("flash").treesitter()
-            --     end,
-            --     desc = "Flash Treesitter",
-            -- },
+            {
+                "S",
+                mode = { "n", "o", "x" },
+                function()
+                    require("flash").treesitter()
+                end,
+                desc = "Flash Treesitter",
+            },
             {
                 "<c-s>",
                 mode = { "c" },
@@ -98,6 +106,7 @@ return {
     {
         "ThePrimeagen/refactoring.nvim",
         dependencies = {
+            { "nvim-telescope/telescope.nvim" },
             { "nvim-lua/plenary.nvim" },
             { "nvim-treesitter/nvim-treesitter" }
         },
@@ -105,7 +114,8 @@ return {
             require('refactoring').setup({})
         end
     },
+    -- 'tpope/vim-sleuth',
     "wakatime/vim-wakatime",
-    'nvim-tree/nvim-web-devicons', -- optional, for file icons
-    'prichrd/netrw.nvim'
+    'nvim-tree/nvim-web-devicons',
+    'prichrd/netrw.nvim',
 }

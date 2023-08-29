@@ -19,7 +19,7 @@ return {
     },
     {
         "windwp/nvim-autopairs",
-        event = "BufEnter",
+        event = "BufReadPre",
         config = function()
             require('nvim-autopairs').setup()
         end,
@@ -27,7 +27,7 @@ return {
 
     {
         'numToStr/Comment.nvim',
-        event = "BufEnter",
+        event = "BufReadPre",
         config = function()
             require('Comment').setup({
                 mappings = {},

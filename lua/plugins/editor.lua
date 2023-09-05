@@ -1,5 +1,8 @@
 return {
-	'mbbill/undotree',
+	{
+		'mbbill/undotree',
+		event = "BufReadPre",
+	},
 	'tpope/vim-fugitive',
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -14,7 +17,7 @@ return {
 	},
 	{
 		'nvim-telescope/telescope.nvim',
-		version = '0.1.x',
+		-- version = '0.1.x',
 		dependencies = { { 'nvim-lua/plenary.nvim' } },
 		config = function()
 			require("telescope").setup {
@@ -48,12 +51,8 @@ return {
 			icons = {
 				buffer_index = true,
 			}
-			-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-			-- animation = true,
-			-- insert_at_start = true,
-			-- …etc.
 		},
-		version = '^1.0.0', -- optional: only update when a new 1.x version is released
+		version = '^1.0.0',
 	},
 	{
 		'nvim-lualine/lualine.nvim',
@@ -94,7 +93,6 @@ return {
 			end,
 		},
 	},
-
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
@@ -133,25 +131,21 @@ return {
 			},
 		},
 	},
-	"nvim-treesitter/nvim-treesitter-context",
-	-- {
-	-- 	"ThePrimeagen/harpoon",
-	-- 	dependencies = { "nvim-lua/plenary.nvim" },
-	-- },
-	{
-		"ThePrimeagen/refactoring.nvim",
-		event = "BufReadPre",
-		dependencies = {
-			{ "nvim-telescope/telescope.nvim" },
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-treesitter/nvim-treesitter" }
-		},
+	{ 'CosmicNvim/cosmic-ui',
+		dependencies = {'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim'},
 		config = function()
-			require('refactoring').setup({})
+			require('cosmic-ui').setup()
 		end
 	},
-	-- 'tpope/vim-sleuth',
-	{ "wakatime/vim-wakatime", event = "BufReadPre" },
-	'nvim-tree/nvim-web-devicons',
+	{ "NvChad/nvim-colorizer.lua",
+		config = function()
+			require 'colorizer'.setup()
+		end
+	},
+	{ "wakatime/vim-wakatime",                  event = "BufReadPre" },
+	{ 'echasnovski/mini.nvim',                  version = '*' },
+	{ "roobert/tailwindcss-colorizer-cmp.nvim", event = "BufReadPre" },
+	"tpope/vim-sleuth",
+	"nvim-treesitter/nvim-treesitter-context",
 	'prichrd/netrw.nvim',
 }

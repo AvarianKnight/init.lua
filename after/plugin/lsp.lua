@@ -15,7 +15,7 @@ local cmp = require('cmp')
 cmp.setup({
 	sources = {
 		{ name = 'path' },
-		{ name = 'nvim_lsp', --[[ max_item_count = 30  ]]},
+		{ name = 'nvim_lsp', max_item_count = 30 },
 		{ name = 'buffer',   keyword_length = 2, max_item_count = 30 },
 		{ name = 'luasnip',  keyword_length = 2, max_item_count = 30 },
 	},
@@ -37,12 +37,12 @@ cmp.setup({
 local lsp_signature = require("lsp_signature")
 lsp_signature.setup({})
 lsp_signature.on_attach({
-	doc_lines = 0,
+	doc_lines = 5,
 })
 
 lsp.skip_server_setup({ "rust_analyzer" })
 
-require('rust-tools').setup()
+-- require('rust-tools').setup()
 
 require('lspconfig').lua_ls.setup({
 	settings = {
@@ -105,7 +105,7 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
 	vim.keymap.set("n", "<leader>ca", "<Cmd> CodeActionMenu <CR>", opts)
 	vim.keymap.set("n", "<leader>cr", function() vim.lsp.buf.references() end, opts)
-	vim.keymap.set("n", "<leader>cn", function() vim.lsp.buf.rename() end, opts)
+	vim.keymap.set("n", "<leader>cn", function() require("cosmic-ui").rename() end, opts)
 	vim.keymap.set("n", "<leader>ci", function() vim.lsp.buf.signature_help() end, opts)
 end)
 vim.api.nvim_create_autocmd("FileType", {

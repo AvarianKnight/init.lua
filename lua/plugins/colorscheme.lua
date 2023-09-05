@@ -48,6 +48,7 @@ return {
         "ellisonleao/gruvbox.nvim",
         priority = 1000,
         config = function()
+            vim.o.background = "light"
             vim.cmd('colorscheme gruvbox')
             vim.cmd("hi NonText guifg=bg")
         end

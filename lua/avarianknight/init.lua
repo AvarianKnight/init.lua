@@ -1,5 +1,5 @@
 require("avarianknight.config")
-require("avarianknight.remap")
+require("avarianknight.keymap")
 
 local augroup = vim.api.nvim_create_augroup
 local AvarianGroup = augroup('Avarian', {})

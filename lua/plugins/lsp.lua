@@ -1,16 +1,93 @@
 return {
 	{
-		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
 		event = "BufReadPre",
 		dependencies = {
+			"williamboman/mason-lspconfig.nvim",
 			"williamboman/mason.nvim",
-			"neovim/nvim-lspconfig",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
-			"ray-x/lsp_signature.nvim",
-			"L3MON4D3/LuaSnip"
+			"L3MON4D3/LuaSnip",
 		},
-		config = function()
+		opts = {
+			servers = {
+				lua_ls = {
+					settings = {
+						Lua = {
+							hint = {
+								enable = true
+							},
+							diagnostics = {
+								globals = { "Citizen", "mysql", "vim", "vector3", "vector2", "vec3", "fx_version" },
+							},
+							completion = {
+								autorequire = false
+							},
+							runtime = {
+								version = "lua 5.4",
+								plugin = "~/.config/lua/plugin.lua",
+								nonstandardSymbol = {
+									"+=",
+									"-=",
+									"*=",
+									"/=",
+									"`"
+								}
+							},
+							workspace = {
+								library = {
+									[vim.fn.expand "$vimruntime/lua"] = true,
+									[vim.fn.expand "$vimruntime/lua/vim/lsp"] = true,
+									["~/.config/lua/natives"] = true,
+									["~/fxserver/server-data/resources/pma-framework"] = true,
+									["~/fxserver/server-data/resources/oxmysql"] = true,
+									["~/fxserver/server/alpine/opt/cfx-server/citizen/scripting/lua"] = true,
+								},
+								type = {
+									weakUnionCheck = true,
+									weakNilCheck = true,
+								},
+								maxPreload = 100000,
+								preloadfilesize = 10000,
+							},
+						},
+					},
+				},
+				tsserver = {
+					settings = {
+						typescript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+								includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+						javascript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+								includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+					},
+				},
+			},
+			inlay_hints = {
+				enabled = true,
+			}
+		},
+		config = function(_, opts)
 			local lspconfig = require('lspconfig')
 			local lsp_defaults = lspconfig.util.default_config
 
@@ -20,15 +97,10 @@ return {
 				require('cmp_nvim_lsp').default_capabilities()
 			)
 
-			local lsp_signature = require("lsp_signature")
-			lsp_signature.setup({})
-			lsp_signature.on_attach({
-				doc_lines = 5,
-			})
-
 			vim.api.nvim_create_autocmd('LspAttach', {
 				desc = 'LSP actions',
 				callback = function(event)
+					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					local opts = { buffer = event.buf }
 
 					vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
@@ -54,6 +126,12 @@ return {
 					vim.keymap.set("n", "<leader>ca", "<Cmd> CodeActionMenu <CR>", opts)
 					vim.keymap.set("n", "<leader>cr", function() vim.lsp.buf.references() end, opts)
 					vim.keymap.set("n", "<leader>ci", function() vim.lsp.buf.signature_help() end, opts)
+					vim.keymap.set("n", "<leader>gi", function() vim.lsp.inlay_hint(event.buf, nil) end, opts)
+
+
+					if client.supports_method("textDocument/inlayHint") then
+						vim.lsp.inlay_hint(event.buf, true)
+					end
 				end
 			})
 
@@ -62,13 +140,12 @@ return {
 			end)
 
 			local default_setup = function(server)
-				lspconfig[server].setup({})
+				lspconfig[server].setup(opts.servers[server] or {})
 			end
 
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
-
-				ensure_installed = {},
+				ensure_installed = { "rust_analyzer" },
 				handlers = { default_setup },
 			})
 
@@ -78,7 +155,7 @@ return {
 			cmp.setup({
 				sources = {
 					{ name = 'path' },
-					{ name = 'nvim_lsp', max_item_count = 30 },
+					{ name = 'nvim_lsp' },
 					{ name = 'buffer',   keyword_length = 2, max_item_count = 30 },
 					-- { name = 'luasnip',  keyword_length = 2, max_item_count = 30 },
 				},
@@ -92,47 +169,6 @@ return {
 					expand = function(args)
 						require('luasnip').lsp_expand(args.body)
 					end,
-				},
-			})
-
-
-			require('lspconfig').lua_ls.setup({
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "Citizen", "mysql", "vim", "vector3", "vector2", "vec3", "fx_version" },
-						},
-						completion = {
-							autorequire = false
-						},
-						runtime = {
-							version = "lua 5.4",
-							plugin = "~/.config/lua/plugin.lua",
-							nonstandardSymbol = {
-								"+=",
-								"-=",
-								"*=",
-								"/=",
-								"`"
-							}
-						},
-						workspace = {
-							library = {
-								[vim.fn.expand "$vimruntime/lua"] = true,
-								[vim.fn.expand "$vimruntime/lua/vim/lsp"] = true,
-								["~/.config/lua/natives"] = true,
-								["~/fxserver/server-data/resources/pma-framework"] = true,
-								["~/fxserver/server-data/resources/oxmysql"] = true,
-								["~/fxserver/server/alpine/opt/cfx-server/citizen/scripting/lua"] = true,
-							},
-							type = {
-								weakUnionCheck = true,
-								weakNilCheck = true,
-							},
-							maxPreload = 100000,
-							preloadfilesize = 10000,
-						},
-					},
 				},
 			})
 

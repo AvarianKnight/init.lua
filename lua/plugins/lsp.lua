@@ -62,7 +62,6 @@ return {
 								includeInlayVariableTypeHints = true,
 								includeInlayFunctionParameterTypeHints = true,
 								includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-
 								includeInlayPropertyDeclarationTypeHints = true,
 								includeInlayFunctionLikeReturnTypeHints = true,
 								includeInlayEnumMemberValueHints = true,

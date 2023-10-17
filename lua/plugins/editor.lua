@@ -7,8 +7,6 @@ return {
 			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 		end
 	},
-	-- git plugin for using git inside of neovim
-	'tpope/vim-fugitive',
 	{
 		-- pretty lua line :D
 		'nvim-lualine/lualine.nvim',
@@ -16,5 +14,12 @@ return {
 			require('lualine').setup {}
 		end
 	},
-	'prichrd/netrw.nvim',
+	{
+		"nvim-tree/nvim-tree.lua",
+		config = function()
+			require("nvim-tree").setup()
+
+			vim.keymap.set("n", "<C-e>", "<CMD>NvimTreeFocus<CR>")
+		end
+	}
 }

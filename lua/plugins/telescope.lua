@@ -11,6 +11,7 @@ return {
                         ".git/",
                         "dist/*",
                         "html/*",
+						-- "[custom-assets]/*"
                     }
                 }
             }

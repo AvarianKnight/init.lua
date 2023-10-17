@@ -31,6 +31,9 @@ return {
 									"-=",
 									"*=",
 									"/=",
+									"&=",
+									"|=",
+									"^=",
 									"`"
 								}
 							},
@@ -123,8 +126,6 @@ return {
 					vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
 					vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
 					vim.keymap.set("n", "<leader>ca", "<Cmd> CodeActionMenu <CR>", opts)
-					vim.keymap.set("n", "<leader>cr", function() vim.lsp.buf.references() end, opts)
-					vim.keymap.set("n", "<leader>ci", function() vim.lsp.buf.signature_help() end, opts)
 					vim.keymap.set("n", "<leader>gi", function() vim.lsp.inlay_hint(event.buf, nil) end, opts)
 
 
@@ -155,7 +156,7 @@ return {
 				sources = {
 					{ name = 'path' },
 					{ name = 'nvim_lsp' },
-					{ name = 'buffer',   keyword_length = 2, max_item_count = 30 },
+					{ name = 'buffer',  keyword_length = 2 },
 					-- { name = 'luasnip',  keyword_length = 2, max_item_count = 30 },
 				},
 				mapping = cmp.mapping.preset.insert({

@@ -15,4 +15,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("avarianknight")
 
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+	change_detection = {
+		notify = false,
+	},
+})

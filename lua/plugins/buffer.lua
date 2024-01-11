@@ -1,18 +1,6 @@
 -- this contains anything that will modify the buffer (besides the lsp)
 return {
 	{
-		-- this shows the indention for the current context (statement? idk)
-		-- its the bars that show the current indention level
-		"lukas-reineke/indent-blankline.nvim",
-		event = "BufReadPre",
-		setup = function()
-			require("indent_blankline").setup {
-				show_current_context = true,
-				show_current_context_start = true,
-			}
-		end
-	},
-	{
 		-- used for persistence sessions
 		"folke/persistence.nvim",
 		opts = {
@@ -61,29 +49,6 @@ return {
 		event = "BufReadPre"
 	},
 	{
-		-- adds documentation comments
-		"danymat/neogen",
-		event = "BufReadPre",
-		keys = {
-			{
-				"<leader>cc",
-				function()
-					require("neogen").generate({})
-				end,
-				desc = "Neogen Comment",
-			},
-		},
-		opts = { snippet_engine = "luasnip" },
-	},
-	{
-		-- TODO: replace with mini.nvim?
-		"windwp/nvim-autopairs",
-		event = "BufReadPre",
-		config = function()
-			require('nvim-autopairs').setup()
-		end,
-	},
-	{
 		-- lets you do easy comments
 		'numToStr/Comment.nvim',
 		event = "BufReadPre",
@@ -97,7 +62,7 @@ return {
 			end)
 
 			vim.keymap.set("v", "<leader>/",
-			     "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
+				"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
 		end
 	}
 }

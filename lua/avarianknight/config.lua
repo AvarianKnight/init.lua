@@ -43,6 +43,9 @@ local success, ret_val = pcall(function()
 	vim.opt.timeoutlen = 300
 	vim.opt.updatetime = 250
 
+
+	vim.opt.foldenable = false
+
 	-- this has to be a string for some reason
 	vim.opt.colorcolumn = "80"
 	vim.opt.textwidth = 80

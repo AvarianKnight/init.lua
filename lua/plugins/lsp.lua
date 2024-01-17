@@ -98,7 +98,7 @@ return {
 			local lspconfig = require('lspconfig')
 			local lsp_defaults = lspconfig.util.default_config
 
-			-- require 'lsp_signature'.setup();
+			require 'lsp_signature'.setup();
 
 			lsp_defaults.capabilities = vim.tbl_deep_extend(
 				'force',
@@ -112,21 +112,16 @@ return {
 					local buff_opts = { buffer = event.buf }
 
 					vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, buff_opts)
-					vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, buff_opts)
-					vim.keymap.set('n', 'gD', function() vim.lsp.buf.declaration() end, buff_opts)
-					vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, buff_opts)
-					vim.keymap.set('n', 'go', function() vim.lsp.buf.type_definition() end, buff_opts)
-					-- vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, buff_opts)
+					vim.keymap.set("n", "<leader>ld", function() vim.lsp.buf.definition() end, buff_opts)
+					vim.keymap.set('n', '<leader>lD', function() vim.lsp.buf.declaration() end, buff_opts)
+					vim.keymap.set('n', '<leader>li', function() vim.lsp.buf.implementation() end, buff_opts)
+					vim.keymap.set('n', '<leader>lo', function() vim.lsp.buf.type_definition() end, buff_opts)
 
 					vim.keymap.set({ 'n', 'i' }, '<C-s>', function() vim.lsp.buf.signature_help() end, buff_opts)
 
-					vim.keymap.set("n", "gn", function() require("cosmic-ui").rename() end, buff_opts)
-					vim.keymap.set({ 'n', 'x' }, "<leader>fp", function() vim.lsp.buf.format({ async = true }) end,
+					vim.keymap.set("n", "<leader>ln", function() require("cosmic-ui").rename() end, buff_opts)
+					vim.keymap.set({ 'n', 'x' }, "<leader>fb", function() vim.lsp.buf.format({ async = true }) end,
 						buff_opts)
-					vim.keymap.set("n", "ga", "<Cmd> CodeActionMenu <CR>", buff_opts)
-
-					vim.keymap.set('n', 'gf', function() vim.diagnostic.open_float() end, buff_opts)
-
 
 					vim.keymap.set("n", "<leader>lf", function() vim.diagnostic.open_float() end, buff_opts)
 					vim.keymap.set("n", "<leader>la", "<Cmd> CodeActionMenu <CR>", buff_opts)

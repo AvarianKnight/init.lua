@@ -17,19 +17,17 @@ return {
 		end
 	},
 	{
-		'prichrd/netrw.nvim',
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		'stevearc/oil.nvim',
+		opts = {},
+		-- Optional dependencies
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require 'netrw'.setup {
-				-- Put your configuration here, or leave the object empty to take the default
-				-- configuration.
-				icons = {
-					symlink = '', -- Symlink icon (directory and file)
-					directory = '', -- Directory icon
-					file = '', -- File icon
-				},
-				use_devicons = true, -- Uses nvim-web-devicons if true, otherwise use the file icon specified above
-			}
+			require("oil").setup()
+
+			vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+			vim.keymap.set("n", "<leader>n", function()
+				require("oil").toggle_float()
+			end, { desc = "Toggles the floating terminal" })
 		end
 	}
 	-- {

@@ -1,6 +1,16 @@
 -- this contains anything that will modify the buffer (besides the lsp)
 return {
 	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {
+			scope = {
+				show_start = false,
+				show_end = false
+			}
+		}
+	},
+	{
 		-- used for persistence sessions
 		"folke/persistence.nvim",
 		opts = {

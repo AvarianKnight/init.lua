@@ -1,8 +1,13 @@
 return {
-    -- {
-    --     "stevearc/profile.nvim",
-    -- }
-
-    -- adds wakatime to neovim
-    { "wakatime/vim-wakatime", event = "BufReadPre" },
+	-- {
+	-- 	"ThePrimeagen/vim-apm",
+	-- 	config = function()
+	-- 		local apm = require("vim-apm")
+	-- 		apm:setup({})
+	-- 		-- apm:toggle_monitor()
+	-- 		vim.keymap.set("n", "<leader>apm", function() apm:toggle_monitor() end)
+	-- 	end
+	-- },
+	-- adds wakatime to neovim
+	{ "wakatime/vim-wakatime", event = "BufReadPre" },
 }

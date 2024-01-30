@@ -34,14 +34,25 @@ local success, ret_val = pcall(function()
 	vim.opt.ignorecase = true
 	vim.opt.smartcase = true
 
+	vim.opt.cursorline = true
+
 	vim.opt.termguicolors = true
 
-	vim.opt.scrolloff = 8
+	vim.opt.scrolloff = 14
 	vim.opt.signcolumn = "yes"
 	vim.opt.isfname:append("@-@")
 
+	vim.opt.guicursor = {
+		"n-v-c:block",
+		"i-ci-ve:ver25",
+		"r-cr:hor20",
+		"o:hor50",
+		"a:blinkwait700-blinkoff400-blinkon250",
+		"sm:block-blinkwait175-blinkoff150-blinkon175"
+	}
+
 	vim.opt.timeoutlen = 300
-	vim.opt.updatetime = 250
+	vim.opt.updatetime = 50
 
 
 	vim.opt.foldenable = false

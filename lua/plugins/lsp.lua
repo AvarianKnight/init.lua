@@ -1,5 +1,10 @@
 return {
 	{
+		'mrcjkb/rustaceanvim',
+		version = '^3', -- Recommended
+		ft = { 'rust' },
+	},
+	{
 		"neovim/nvim-lspconfig",
 		event = "BufReadPre",
 		dependencies = {
@@ -9,9 +14,11 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
 			"ray-x/lsp_signature.nvim",
+			-- shows LSP loading info on the bottom right
 			"j-hui/fidget.nvim",
 			"Hoffs/omnisharp-extended-lsp.nvim",
 
+			"folke/neodev.nvim",
 			-- "OmniSharp/Omnisharp-vim"
 		},
 		opts = {
@@ -100,6 +107,8 @@ return {
 
 			require 'lsp_signature'.setup();
 
+			require("neodev").setup()
+
 			lsp_defaults.capabilities = vim.tbl_deep_extend(
 				'force',
 				lsp_defaults.capabilities,
@@ -140,6 +149,7 @@ return {
 				ensure_installed = { "rust_analyzer" },
 				handlers = {
 					function(server)
+						if server == "rust_analyzer" then return end
 						lspconfig[server].setup(opts.servers[server] or {})
 					end,
 					["omnisharp"] = function(server)
@@ -190,7 +200,7 @@ return {
 			vim.diagnostic.config({
 				virtual_text = true,
 				signs = true,
-				update_in_insert = true,
+				update_in_insert = false,
 				underline = true,
 				severity_sort = true,
 				float = {
@@ -205,7 +215,6 @@ return {
 		end
 	},
 	-- adds better autocompletion for vim related things
-	{ "folke/neodev.nvim", opts = {} },
 	{
 		"windwp/nvim-ts-autotag",
 		event = "BufReadPre"

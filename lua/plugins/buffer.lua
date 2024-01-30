@@ -1,6 +1,9 @@
 -- this contains anything that will modify the buffer (besides the lsp)
 return {
 	{
+		"tpope/vim-sleuth"
+	},
+	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
 		config = function()

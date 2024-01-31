@@ -14,6 +14,6 @@ return {
 		vim.keymap.set("n", "<leader>lid", function() require("trouble").toggle("document_diagnostics") end)
 		vim.keymap.set("n", "<leader>lq", function() require("trouble").toggle("quickfix") end)
 		vim.keymap.set("n", "<leader>ll", function() require("trouble").toggle("loclist") end)
-		vim.keymap.set("n", "lr", function() require("trouble").toggle("lsp_references") end)
+		vim.keymap.set("n", "<leader>lr", function() require("trouble").toggle("lsp_references") end)
 	end
 }

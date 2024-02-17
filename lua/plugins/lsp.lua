@@ -37,7 +37,7 @@ return {
 							},
 							runtime = {
 								version = "lua 5.4",
-								plugin = "~/.config/lua/plugin.lua",
+								plugin = "~/.config/fivem-lls-addon/plugin.lua",
 								nonstandardSymbol = {
 									"+=",
 									"-=",
@@ -53,7 +53,7 @@ return {
 								library = {
 									[vim.fn.expand "$vimruntime/lua"] = true,
 									[vim.fn.expand "$vimruntime/lua/vim/lsp"] = true,
-									["~/.config/lua/natives"] = true,
+									["~/.config/fivem-lls-addon/library"] = true,
 									["~/fxserver/server-data/resources/pma-framework"] = true,
 									["~/fxserver/server-data/resources/oxmysql"] = true,
 									["~/fxserver/server/alpine/opt/cfx-server/citizen/scripting/lua"] = true,
@@ -121,19 +121,20 @@ return {
 					local buff_opts = { buffer = event.buf }
 
 					vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, buff_opts)
-					vim.keymap.set("n", "<leader>ld", function() vim.lsp.buf.definition() end, buff_opts)
-					vim.keymap.set('n', '<leader>lD', function() vim.lsp.buf.declaration() end, buff_opts)
-					vim.keymap.set('n', '<leader>li', function() vim.lsp.buf.implementation() end, buff_opts)
-					vim.keymap.set('n', '<leader>lo', function() vim.lsp.buf.type_definition() end, buff_opts)
+					vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, buff_opts)
+					vim.keymap.set('n', 'gD', function() vim.lsp.buf.declaration() end, buff_opts)
+					vim.keymap.set('n', 'gI', function() vim.lsp.buf.implementation() end, buff_opts)
+					vim.keymap.set('n', '<leader>td', function() vim.lsp.buf.type_definition() end, buff_opts)
 
 					vim.keymap.set({ 'n', 'i' }, '<C-s>', function() vim.lsp.buf.signature_help() end, buff_opts)
 
-					vim.keymap.set("n", "<leader>ln", function() require("cosmic-ui").rename() end, buff_opts)
+					vim.keymap.set("n", "<leader>rn", function() require("cosmic-ui").rename() end, buff_opts)
 					vim.keymap.set({ 'n', 'x' }, "<leader>fb", function() vim.lsp.buf.format({ async = true }) end,
 						buff_opts)
 
 					vim.keymap.set("n", "<leader>lf", function() vim.diagnostic.open_float() end, buff_opts)
 					vim.keymap.set("n", "<leader>la", "<Cmd> CodeActionMenu <CR>", buff_opts)
+					vim.keymap.set("n", 'gD', vim.lsp.buf.declaration)
 				end
 			})
 

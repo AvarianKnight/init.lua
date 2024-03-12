@@ -3,6 +3,35 @@ return {
 		'mrcjkb/rustaceanvim',
 		version = '^3', -- Recommended
 		ft = { 'rust' },
+		config = function()
+			vim.g.rustaceanvim = {
+				-- Plugin configuration
+				tools = {
+				},
+				-- LSP configuration
+				server = {
+					on_attach = function(client, bufnr)
+						-- you can also put keymaps in here
+					end,
+					default_settings = {
+						-- rust-analyzer language server configuration
+						['rust-analyzer'] = {
+							cargo = {
+								buildScripts = {
+									rebuildOnSave = false
+								}
+							}
+						},
+					},
+				},
+			}
+		end
+	},
+	{
+		"aznhe21/actions-preview.nvim",
+		config = function()
+			vim.keymap.set({ "v", "n" }, "<leader>la", require("actions-preview").code_actions)
+		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -133,7 +162,7 @@ return {
 						buff_opts)
 
 					vim.keymap.set("n", "<leader>lf", function() vim.diagnostic.open_float() end, buff_opts)
-					vim.keymap.set("n", "<leader>la", "<Cmd> CodeActionMenu <CR>", buff_opts)
+					-- vim.keymap.set("n", "<leader>la", "<Cmd> CodeActionMenu <CR>", buff_opts)
 					vim.keymap.set("n", 'gD', vim.lsp.buf.declaration)
 				end
 			})
@@ -147,7 +176,7 @@ return {
 
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
-				ensure_installed = { "rust_analyzer" },
+				ensure_installed = { "rust_analyzer", "lua_ls", "tsserver" },
 				handlers = {
 					function(server)
 						if server == "rust_analyzer" then return end
@@ -201,7 +230,7 @@ return {
 			vim.diagnostic.config({
 				virtual_text = true,
 				signs = true,
-				update_in_insert = false,
+				update_in_insert = true,
 				underline = true,
 				severity_sort = true,
 				float = {

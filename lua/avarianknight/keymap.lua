@@ -31,7 +31,7 @@ local success, data =  pcall(function()
 	vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 
-	vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+	-- vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 	vim.keymap.set("n", "<leader>ex", "<cmd>!chmod +x %<CR>", { silent = true })
 
 	-- Freezes on windows

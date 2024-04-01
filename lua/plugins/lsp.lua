@@ -35,10 +35,10 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
-		event = "BufReadPre",
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
 			"williamboman/mason.nvim",
+			"pmizio/typescript-tools.nvim",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
@@ -48,7 +48,6 @@ return {
 			"Hoffs/omnisharp-extended-lsp.nvim",
 
 			"folke/neodev.nvim",
-			-- "OmniSharp/Omnisharp-vim"
 		},
 		opts = {
 			servers = {
@@ -97,38 +96,7 @@ return {
 						},
 					},
 				},
-				tsserver = {
-					settings = {
-						typescript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-								includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-						javascript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-								includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-					},
-				},
 			},
-			-- inlay_hints = {
-			-- 	enabled = true,
-			-- }
 		},
 		config = function(_, opts)
 			local lspconfig = require('lspconfig')
@@ -149,13 +117,39 @@ return {
 				callback = function(event)
 					local buff_opts = { buffer = event.buf }
 
-					vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, buff_opts)
-					vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, buff_opts)
-					vim.keymap.set('n', 'gD', function() vim.lsp.buf.declaration() end, buff_opts)
-					vim.keymap.set('n', 'gI', function() vim.lsp.buf.implementation() end, buff_opts)
-					vim.keymap.set('n', '<leader>td', function() vim.lsp.buf.type_definition() end, buff_opts)
+					local map = function(keys, func, desc)
+						vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+					end
 
-					vim.keymap.set({ 'n', 'i' }, '<C-s>', function() vim.lsp.buf.signature_help() end, buff_opts)
+
+					-- Opens a popup that displays documentation about the word under your cursor
+					--  See `:help K` for why this keymap
+					map('K', vim.lsp.buf.hover, 'Hover Documentation')
+
+					-- Jump to the definition of the word under your cursor.
+					--  This is where a variable was first declared, or where a function is defined, etc.
+					--  To jump back, press <C-t>.
+					map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+
+					-- Find references for the word under your cursor.
+					map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+
+					-- Jump to the implementation of the word under your cursor.
+					--  Useful when your language has ways of declaring types without an actual implementation.
+					map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+
+					-- WARN: This is not Goto Definition, this is Goto Declaration.
+					--  For example, in C this would take you to the header
+					map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+					-- Jump to the type of the word under your cursor.
+					--  Useful when you're not sure what type a variable is and you want to see
+					--  the definition of its *type*, not where it was *defined*.
+					map('gtd', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+
+					-- Fuzzy find all the symbols in your current document.
+					--  Symbols are things like variables, functions, types, etc.
+					map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
 					vim.keymap.set("n", "<leader>rn", function() require("cosmic-ui").rename() end, buff_opts)
 					vim.keymap.set({ 'n', 'x' }, "<leader>fb", function() vim.lsp.buf.format({ async = true }) end,
@@ -174,24 +168,27 @@ return {
 
 			require("fidget").setup {}
 
+			require("typescript-tools").setup {
+
+			}
+
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
-				ensure_installed = { "rust_analyzer", "lua_ls", "tsserver" },
+				ensure_installed = { "rust_analyzer", "lua_ls" },
 				handlers = {
 					function(server)
 						if server == "rust_analyzer" then return end
+						if server == "tsserver" then return end
 						lspconfig[server].setup(opts.servers[server] or {})
 					end,
 					["omnisharp"] = function(server)
-						local pid = vim.fn.getpid()
-
-						local omnisharp_bin = "/usr/local/bin/omnisharp/OmniSharp"
-
 						lspconfig["omnisharp"].setup({
 							handlers = {
-								["textDocument/definition"] = require('omnisharp_extended').handler,
+								["textDocument/definition"] = require('omnisharp_extended').definition_handler,
+								["textDocument/typeDefinition"] = require('omnisharp_extended').type_definition_handler,
+								["textDocument/references"] = require('omnisharp_extended').references_handler,
+								["textDocument/implementation"] = require('omnisharp_extended').implementation_handler,
 							},
-							cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) }
 						})
 					end,
 				},

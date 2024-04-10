@@ -41,16 +41,6 @@ return {
 	},
 
 	{
-		-- better renaming
-		'CosmicNvim/cosmic-ui',
-		event = "BufReadPre",
-		dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
-		config = function()
-			require('cosmic-ui').setup()
-		end
-	},
-
-	{
 		-- adds color to hex colors, rgba, etc.
 		"NvChad/nvim-colorizer.lua",
 		event = "BufReadPre",

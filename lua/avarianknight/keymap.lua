@@ -4,8 +4,8 @@ local success, data =  pcall(function()
 
 
 	vim.keymap.set("n", "J", "mzJ`z")
-	vim.keymap.set("n", "<C-d>", "<C-d>zz")
-	vim.keymap.set("n", "<C-u>", "<C-u>zz")
+	-- vim.keymap.set("n", "<C-d>", "<C-d>zz")
+	-- vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 	-- allow movement keys
 	vim.keymap.set("i", "<C-h>", "<Left>")

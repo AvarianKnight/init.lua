@@ -1,4 +1,5 @@
 return {
+	'nvim-telescope/telescope-ui-select.nvim',
 	{
 		'mrcjkb/rustaceanvim',
 		version = '^3', -- Recommended
@@ -27,15 +28,17 @@ return {
 			}
 		end
 	},
-	{
-		"aznhe21/actions-preview.nvim",
-		config = function()
-			vim.keymap.set({ "v", "n" }, "<leader>la", require("actions-preview").code_actions)
-		end,
-	},
+	-- {
+	-- 	"aznhe21/actions-preview.nvim",
+	-- 	config = function()
+	-- 		vim.keymap.set({ "v", "n" }, "<leader>la", require("actions-preview").code_actions)
+	-- 	end,
+	-- },
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
+			'nvim-lua/plenary.nvim',
+			'filipdutescu/renamer.nvim',
 			"williamboman/mason-lspconfig.nvim",
 			"williamboman/mason.nvim",
 			"pmizio/typescript-tools.nvim",
@@ -160,12 +163,13 @@ return {
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
 					map('gtd', lsp_type_definitions, 'Type [D]efinition')
+					map('<leader>la', vim.lsp.buf.code_action, 'Type [D]efinition')
 
 					-- Fuzzy find all the symbols in your current document.
 					--  Symbols are things like variables, functions, types, etc.
 					map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
-					vim.keymap.set("n", "<leader>rn", function() require("cosmic-ui").rename() end, buff_opts)
+					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, buff_opts)
 					vim.keymap.set({ 'n', 'x' }, "<leader>fb", function() vim.lsp.buf.format({ async = true }) end,
 						buff_opts)
 
@@ -197,12 +201,12 @@ return {
 					end,
 					["omnisharp"] = function(server)
 						lspconfig["omnisharp"].setup({
-							handlers = {
+							handlers = vim.tbl_deep_extend("force", {
 								["textDocument/definition"] = require('omnisharp_extended').definition_handler,
 								["textDocument/typeDefinition"] = require('omnisharp_extended').type_definition_handler,
 								["textDocument/references"] = require('omnisharp_extended').references_handler,
 								["textDocument/implementation"] = require('omnisharp_extended').implementation_handler,
-							},
+							}, vim.lsp.handlers),
 						})
 					end,
 				},
@@ -259,9 +263,5 @@ return {
 	{
 		"windwp/nvim-ts-autotag",
 		event = "BufReadPre"
-	},
-	{
-		'weilbith/nvim-code-action-menu',
-		cmd = 'CodeActionMenu',
 	},
 }

@@ -28,7 +28,7 @@ local success, ret_val = pcall(function()
 	vim.opt.backup = false
 
 	-- set highlight on search
-	vim.opt.hlsearch = false
+	vim.opt.hlsearch = true
 	vim.opt.incsearch = true
 	-- case insensitive search
 	vim.opt.ignorecase = true
@@ -38,7 +38,7 @@ local success, ret_val = pcall(function()
 
 	vim.opt.termguicolors = true
 
-	vim.opt.scrolloff = 14
+	vim.opt.scrolloff = 999
 	vim.opt.signcolumn = "yes"
 	vim.opt.isfname:append("@-@")
 
@@ -64,8 +64,6 @@ local success, ret_val = pcall(function()
 	vim.g.code_action_menu_show_details = false
 
 	vim.g.markdown_recommended_style = 0
-
-	-- We don't want to show our insert mode in base line
 end)
 
 if not success then

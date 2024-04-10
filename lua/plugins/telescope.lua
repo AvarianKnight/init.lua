@@ -2,7 +2,7 @@ return {
 	{
 		'avarianknight/telescope.nvim',
 		-- version = '0.1.x',
-		dependencies = {  'nvim-lua/plenary.nvim'  },
+		dependencies = {'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-ui-select.nvim'},
 		config = function()
 			local telescope = require("telescope")
 			telescope.setup {
@@ -11,7 +11,8 @@ return {
 						"node_modules",
 						".git/",
 						"html/*",
-						"dist/*"
+						"dist/*",
+						"bin/*",
 					},
 				},
 			}
@@ -44,6 +45,7 @@ return {
 			vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 
 			pcall(require('telescope').load_extension, 'fzf')
+			pcall(require('telescope').load_extension, 'ui-select')
 		end
 	},
 }

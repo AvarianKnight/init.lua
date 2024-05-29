@@ -121,7 +121,13 @@ return {
 				callback = function(event)
 					local buff_opts = { buffer = event.buf }
 
+
 					local client = vim.lsp.get_client_by_id(event.data.client_id);
+
+					-- vim.lsp.inlay_hint.enable(true)
+					-- if client and client.server_capabilities.inlayHintProvider then
+					-- 	vim.lsp.inlay_hint.enable(true)
+					-- end
 
 					local lsp_definitions = require('telescope.builtin').lsp_definitions
 					local lsp_references = require('telescope.builtin').lsp_references
@@ -186,9 +192,9 @@ return {
 
 			require("fidget").setup {}
 
-			require("typescript-tools").setup {
-
-			}
+			-- require("typescript-tools").setup {
+			--
+			-- }
 
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
@@ -196,7 +202,7 @@ return {
 				handlers = {
 					function(server)
 						if server == "rust_analyzer" then return end
-						if server == "tsserver" then return end
+						-- if server == "tsserver" then return end
 						lspconfig[server].setup(opts.servers[server] or {})
 					end,
 					["omnisharp"] = function(server)

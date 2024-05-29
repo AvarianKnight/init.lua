@@ -7,7 +7,7 @@ return {
 			{
 				"<leader>ca",
 				function()
-					require("neogen").generate()
+					require("neogen").generate({ type = "any"})
 				end,
 				desc = "Neogen Auto Comment",
 			},

@@ -8,11 +8,28 @@ return {
 				-- Add languages to be installed here that you want installed for treesitter
 				ensure_installed = { 'cpp', 'lua', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
 
+				-- Install parsers synchronously (only applied to `ensure_installed`)
+				sync_install = false,
+
 				-- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
 				auto_install = false,
 
-				highlight = { enable = true },
-				indent = { enable = false },
+				ignore_install = {},
+
+				modules = {},
+
+				highlight = {
+					enable = true,
+					disable = function(lang, buf)
+						local max_filesize = 100 * 1024 -- 100 KB
+						local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+						if ok and stats and stats.size > max_filesize then
+							return true
+						end
+					end,
+				},
+
+				indent = { enable = true },
 				incremental_selection = {
 					enable = true,
 					keymaps = {

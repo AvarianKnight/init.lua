@@ -2,7 +2,7 @@ return {
 	'nvim-telescope/telescope-ui-select.nvim',
 	{
 		'mrcjkb/rustaceanvim',
-		version = '^3', -- Recommended
+		version = '^4', -- Recommended
 		ft = { 'rust' },
 		config = function()
 			vim.g.rustaceanvim = {
@@ -125,9 +125,9 @@ return {
 					local client = vim.lsp.get_client_by_id(event.data.client_id);
 
 					-- vim.lsp.inlay_hint.enable(true)
-					-- if client and client.server_capabilities.inlayHintProvider then
-					-- 	vim.lsp.inlay_hint.enable(true)
-					-- end
+					if client and client.server_capabilities.inlayHintProvider then
+						vim.lsp.inlay_hint.enable(true)
+					end
 
 					local lsp_definitions = require('telescope.builtin').lsp_definitions
 					local lsp_references = require('telescope.builtin').lsp_references

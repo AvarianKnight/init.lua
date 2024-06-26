@@ -4,35 +4,6 @@ return {
 		"tpope/vim-sleuth"
 	},
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		config = function()
-			require('ibl').setup({
-				indent = {
-					char = "•",
-					tab_char = "▎"
-				}
-			})
-		end
-	},
-	{
-		-- used for persistence sessions
-		"folke/persistence.nvim",
-		opts = {
-			dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/"),
-			options = { "buffers", "curdir", "tabpages", "winsize" },
-		},
-		keys = {
-			{
-				"<leader>qs",
-				function()
-					require("persistence").load()
-				end,
-				desc = "Load the last session for this directory"
-			}
-		},
-	},
-	{
 		-- adds highlighting todo comments and other things
 		"folke/todo-comments.nvim",
 		event = "BufReadPre",
@@ -45,7 +16,9 @@ return {
 		"NvChad/nvim-colorizer.lua",
 		event = "BufReadPre",
 		config = function()
-			require 'colorizer'.setup()
+			require 'colorizer'.setup({
+				filetypes = { "html", "css", "svelte", "react" }
+			})
 		end
 	},
 	{
@@ -69,5 +42,5 @@ return {
 			vim.keymap.set("v", "<leader>/",
 				"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
 		end
-	}
+	},
 }

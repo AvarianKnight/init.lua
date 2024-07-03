@@ -8,13 +8,31 @@ return {
 				vim.cmd("hi NonText guifg=bg")
 			end)
 
-			require("gruvbox").setup({
-				contrast = "hard",
-			})
+			-- require("gruvbox").setup({
+			-- 	contrast = "hard",
+			-- })
 
-			vim.o.background = "dark"
-			vim.cmd.colorscheme 'gruvbox'
-			vim.cmd("hi NonText guifg=bg")
+			-- vim.o.background = "dark"
+			-- vim.cmd.colorscheme 'gruvbox'
+			-- vim.cmd("hi NonText guifg=bg")
 		end
 	},
+	{
+		"folke/tokyonight.nvim",
+		priority = 1000,
+		config = function()
+			vim.keymap.set("n", "<leader>cb", function()
+				vim.o.background = vim.o.background == "light" and "dark" or "light"
+				vim.cmd("hi NonText guifg=bg")
+			end)
+
+			-- require("gruvbox").setup({
+			-- 	contrast = "hard",
+			-- })
+			--
+			vim.o.background = "dark"
+			vim.cmd.colorscheme 'tokyonight'
+			vim.cmd("hi NonText guifg=bg")
+		end
+	}
 }

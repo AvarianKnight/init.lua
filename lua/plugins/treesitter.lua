@@ -21,6 +21,9 @@ return {
 				highlight = {
 					enable = true,
 					disable = function(lang, buf)
+						if lang == "rust" then
+							return false
+						end
 						if lang == "cpp" then
 							return false
 						end

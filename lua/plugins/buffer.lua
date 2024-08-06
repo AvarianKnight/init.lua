@@ -17,18 +17,13 @@ return {
 	{
 		"tpope/vim-sleuth"
 	},
-	{
-		"m4xshen/hardtime.nvim",
-		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-		opts = {},
-	},
-	{
-		-- adds highlighting todo comments and other things
-		"folke/todo-comments.nvim",
-		event = "BufReadPre",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {}
-	},
+	-- {
+	-- 	-- adds highlighting todo comments and other things
+	-- 	"folke/todo-comments.nvim",
+	-- 	event = "BufReadPre",
+	-- 	dependencies = { "nvim-lua/plenary.nvim" },
+	-- 	opts = {}
+	-- },
 
 	{
 		-- adds color to hex colors, rgba, etc.

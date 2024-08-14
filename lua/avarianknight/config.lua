@@ -5,6 +5,29 @@ local success, ret_val = pcall(function()
 	vim.g.netrw_banner = 0
 	vim.g.netrw_winsize = 25
 
+	vim.opt.textwidth = 80
+
+	vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+		pattern = { "*.md", "*.mdx" },
+		callback = function(ev)
+			-- for markdown files reset text width so it doesn't try to swap to
+			-- the next line
+			vim.opt.textwidth = 0
+			vim.cmd("setlocal spell spelllang=en_us")
+		end
+	})
+
+	vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+		pattern = { "!*.md", "!*.mdx" },
+		callback = function(ev)
+			-- for markdown files reset text width so it doesn't try to swap to
+			-- next line
+			vim.opt.textwidth = 80
+			vim.cmd("setlocal spell off")
+		end
+	})
+
+
 	vim.g.netrw_liststyle = 3
 
 	vim.opt.nu = true
@@ -59,7 +82,6 @@ local success, ret_val = pcall(function()
 
 	-- this has to be a string for some reason
 	vim.opt.colorcolumn = "80"
-	vim.opt.textwidth = 80
 
 	vim.g.code_action_menu_show_details = false
 

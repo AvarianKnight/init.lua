@@ -13,7 +13,7 @@ local success, ret_val = pcall(function()
 			-- for markdown files reset text width so it doesn't try to swap to
 			-- the next line
 			vim.opt.textwidth = 0
-			vim.cmd("setlocal spell spelllang=en_us")
+			-- vim.cmd("setlocal spell spelllang=en_us")
 		end
 	})
 
@@ -23,10 +23,11 @@ local success, ret_val = pcall(function()
 			-- for markdown files reset text width so it doesn't try to swap to
 			-- next line
 			vim.opt.textwidth = 80
-			vim.cmd("setlocal spell off")
+			-- vim.cmd("setlocal spell off")
 		end
 	})
 
+	vim.cmd("setlocal spell spelllang=en_us")
 
 	vim.g.netrw_liststyle = 3
 

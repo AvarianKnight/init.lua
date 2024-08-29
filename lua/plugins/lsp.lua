@@ -41,7 +41,7 @@ return {
 			'filipdutescu/renamer.nvim',
 			"williamboman/mason-lspconfig.nvim",
 			"williamboman/mason.nvim",
-			-- "pmizio/typescript-tools.nvim",
+			"pmizio/typescript-tools.nvim",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
@@ -192,16 +192,16 @@ return {
 
 			require("fidget").setup {}
 
-			-- local api = require("typescript-tools.api")
+			local api = require("typescript-tools.api")
 
-			-- require("typescript-tools").setup {
-			-- 	handlers = {
-			-- 		["textDocument/publishDiagnostics"] = api.filter_diagnostics({
-			-- 			-- Unused labels
-			-- 			7028
-			-- 		})
-			-- 	}
-			-- }
+			require("typescript-tools").setup {
+				handlers = {
+					["textDocument/publishDiagnostics"] = api.filter_diagnostics({
+						-- Unused labels
+						7028
+					})
+				}
+			}
 
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
@@ -209,7 +209,7 @@ return {
 				handlers = {
 					function(server)
 						if server == "rust_analyzer" then return end
-						-- if server == "tsserver" then return end
+						if server == "tsserver" then return end
 						lspconfig[server].setup(opts.servers[server] or {})
 					end,
 					["omnisharp"] = function(server)

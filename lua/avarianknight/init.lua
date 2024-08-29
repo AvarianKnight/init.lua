@@ -18,9 +18,9 @@ autocmd('TextYankPost', {
     end,
 })
 
-autocmd({ "BufWritePre" }, {
-    group = AvarianGroup,
-    pattern = "*",
-    command = [[%s/\s\+$//e]],
-})
+-- autocmd({ "BufWritePre" }, {
+--     group = AvarianGroup,
+--     pattern = "*",
+--     command = [[%s/\s\+$//e]],
+-- })
 

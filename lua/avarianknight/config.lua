@@ -41,6 +41,7 @@ local success, ret_val = pcall(function()
 	-- vim.opt.spell = false
 
 	vim.opt.smartindent = true
+	vim.opt.autoindent = true
 	-- vim.opt.noexpandtab = true
 	vim.opt.tabstop = 4
 	vim.opt.softtabstop = 4

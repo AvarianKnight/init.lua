@@ -209,7 +209,7 @@ return {
 				handlers = {
 					function(server)
 						if server == "rust_analyzer" then return end
-						if server == "tsserver" then return end
+						if server == "ts_ls" then return end
 						lspconfig[server].setup(opts.servers[server] or {})
 					end,
 					["omnisharp"] = function(server)

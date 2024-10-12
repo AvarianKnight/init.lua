@@ -28,12 +28,46 @@ return {
 			}
 		end
 	},
-	-- {
-	-- 	"aznhe21/actions-preview.nvim",
-	-- 	config = function()
-	-- 		vim.keymap.set({ "v", "n" }, "<leader>la", require("actions-preview").code_actions)
-	-- 	end,
-	-- },
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"L3MON4D3/LuaSnip",
+			{ "roobert/tailwindcss-colorizer-cmp.nvim", opts = {}},
+		},
+		config = function()
+			local cmp = require('cmp')
+			cmp.setup({
+				formatting = {
+					format = require("tailwindcss-colorizer-cmp").formatter,
+				},
+				sources = {
+					{ name = 'path' },
+					{
+						name = 'nvim_lsp',
+						-- i have no care in the world for snippets half of the
+						-- time they're just horrible
+						entry_filter = function(entry)
+							return cmp.lsp.CompletionItemKind.Snippet ~= entry:get_kind()
+						end
+					},
+					{ name = 'buffer', keyword_length = 2 },
+				},
+				mapping = cmp.mapping.preset.insert({
+					['<C-y>'] = cmp.mapping.confirm({ select = true }),
+					-- Enter key confirms completion item
+					['<CR>'] = cmp.mapping.confirm({ select = false }),
+					-- Ctrl + space triggers completion menu
+					['<C-Space>'] = cmp.mapping.complete(),
+				}),
+				snippet = {
+					expand = function(args)
+						require('luasnip').lsp_expand(args.body)
+					end,
+				},
+			})
+		end
+	},
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -42,9 +76,6 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"williamboman/mason.nvim",
 			"pmizio/typescript-tools.nvim",
-			"hrsh7th/nvim-cmp",
-			"hrsh7th/cmp-nvim-lsp",
-			"L3MON4D3/LuaSnip",
 			"ray-x/lsp_signature.nvim",
 			-- shows LSP loading info on the bottom right
 			"j-hui/fidget.nvim",
@@ -225,33 +256,6 @@ return {
 				},
 			})
 
-			local cmp = require('cmp')
-			cmp.setup({
-				sources = {
-					{ name = 'path' },
-					{
-						name = 'nvim_lsp',
-						-- i have no care in the world for snippets half of the
-						-- time they're just horrible
-						entry_filter = function(entry)
-							return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind()
-						end
-					},
-					{ name = 'buffer', keyword_length = 2 },
-				},
-				mapping = cmp.mapping.preset.insert({
-					['<C-y>'] = cmp.mapping.confirm({ select = true }),
-					-- Enter key confirms completion item
-					['<CR>'] = cmp.mapping.confirm({ select = false }),
-					-- Ctrl + space triggers completion menu
-					['<C-Space>'] = cmp.mapping.complete(),
-				}),
-				snippet = {
-					expand = function(args)
-						require('luasnip').lsp_expand(args.body)
-					end,
-				},
-			})
 
 
 

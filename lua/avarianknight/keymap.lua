@@ -23,7 +23,6 @@ local success, data =  pcall(function()
 	vim.keymap.set("v", "<leader>d", "\"_d")
 
 	vim.keymap.set("n", "Q", "<nop>")
-	vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 	vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 	vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
